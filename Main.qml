@@ -29,11 +29,11 @@ Window {
 		mouseFlag = flag
 		if (flag) {
 			moveDuration = Timer.start
-			clickPos.text = `dur: ${moveDuration}`
 		} else {
 			moveDuration = Timer.stop
-			clickPos.text = `dur: ${moveDuration}`
 		}
+
+		clickPos.text = `dur: ${moveDuration}`
 	}
 
 	Rectangle {
@@ -43,8 +43,8 @@ Window {
 		height: 100
 		width: 4 * height
 
-		x: parent.width / 2 - width / 2
-		y: parent.height / 2 - height / 2
+		x: parent.width / 2 - this.width / 2
+		y: parent.height / 2 - this.height / 2
 
 		MouseArea {
 			width: parent.width
@@ -64,8 +64,8 @@ Window {
 	}
 
 	function moveRect() {
-		rect.x = Math.random() * (width - rect.width)
-		rect.y = Math.random() * (height - rect.height)
+		rect.x = Math.random() * (this.width - rect.width)
+		rect.y = Math.random() * (this.height - rect.height)
 	}
 
 	MenuBar {
