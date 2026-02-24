@@ -14,6 +14,21 @@ Window {
 	property var moveBegin
 	property var moveDuration
 
+	property var sizes: [
+		{size: 1, enabled: false},
+		{size: 10, enabled: false},
+		{size: 100, enabled: false},
+		{size: 1000, enabled: false},
+		{size: 10000, enabled: false}
+	]
+
+	property var distances: [
+		{distance: 1, enabled: false},
+		{distance: 10, enabled: false},
+		{distance: 100, enabled: false},
+		{distance: 1000, enabled: false},
+		{distance: 10000, enabled: false}
+	]
 
 	MouseArea {
 		id: mainMouseArea
@@ -33,7 +48,34 @@ Window {
 			moveDuration = Timer.stop
 		}
 
-		clickPos.text = `dur: ${moveDuration}`
+		let txt = "sizes:"
+		sizes.forEach(s => {
+			txt += `\nsize: ${s.size}, on: ${s.enabled}`
+		})
+		txt += "\ndistances:"
+		distances.forEach(d => {
+			txt += `\ndist: ${d.distance}, on: ${d.enabled}`
+		})
+
+		clickPos.text = txt
+	}
+
+	function sizeToggle(size) {
+		console.log(`sizeToggle: ${size}`)
+		sizes.forEach(s =>{
+			if (s.size === size) {
+				s.enabled = !s.enabled
+			}
+		})
+	}
+	function distanceToggle(distance) {
+		console.log(`distanceToggle: ${distance}`)
+		distances.forEach(d =>{
+			if (d.distance === distance) {
+				console.log('Нашёл что менять')
+				d.enabled = !d.enabled
+			}
+		})
 	}
 
 	Rectangle {
@@ -76,14 +118,16 @@ Window {
 		}
 
 		Menu {
-			title: qsTr("Sample text")
+			title: qsTr("Настройки")
 
 			Menu {
-				title: qsTr("Sample text0")
+				title: qsTr("Размеры")
 
 				Action {
-					text: qsTr("test1")
+					property int size: 1
+					text: this.size
 					checkable: true
+					onCheckedChanged: sizeToggle(this.size)
 				}
 
 				Action {
@@ -93,11 +137,13 @@ Window {
 			}
 
 			Menu {
-				title: qsTr("Sample text1")
+				title: qsTr("Расстояния")
 
 				Action {
-					text: qsTr("test3")
+					property int distance: 1
+					text: this.distance
 					checkable: true
+					onCheckedChanged: distanceToggle(this.distance)
 				}
 
 				Action {
