@@ -62,6 +62,8 @@ Window {
 
 	function sizeToggle(size) {
 		console.log(`sizeToggle: ${size}`)
+
+		//todo: не лучший вариант (?)
 		sizes.forEach(s =>{
 			if (s.size === size) {
 				s.enabled = !s.enabled
@@ -70,9 +72,10 @@ Window {
 	}
 	function distanceToggle(distance) {
 		console.log(`distanceToggle: ${distance}`)
+
+		//todo: не лучший вариант (?)
 		distances.forEach(d =>{
 			if (d.distance === distance) {
-				console.log('Нашёл что менять')
 				d.enabled = !d.enabled
 			}
 		})
